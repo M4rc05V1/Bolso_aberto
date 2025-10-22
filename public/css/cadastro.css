@@ -1,0 +1,95 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #0d3324; /* Verde escuro principal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container central */
+.register-container {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+}
+
+/* Logo */
+.logo img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+/* Inputs */
+form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border 0.3s ease;
+}
+
+form input:focus {
+  border: 1px solid #1a5c43;
+  outline: none;
+  box-shadow: 0 0 6px rgba(26, 92, 67, 0.3);
+}
+
+/* Botão */
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a5c43; /* Verde médio */
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+  background-color: #124231; /* Verde mais escuro */
+  transform: scale(1.03);
+}
+.link-login {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.link-login a {
+    color: #0f2f1f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-login a:hover {
+    color: #145c39;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 25px 20px;
+  }
+
+  .logo img {
+    width: 65px;
+  }
+}

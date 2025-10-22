@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Financeiro</title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="description" content="Painel financeiro interativo para controlar entradas, gastos e saldo. Visualize gráficos, categorias e organize suas finanças de forma simples.">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="/assets/img/logo.png" alt="Logo">
+      <h1>Seus Gastos</h1>
+    </div>
+    <nav>
+      <button id="btn-sair">Sair</button>
+    </nav>
+  </header>
+
+  <main>
+    <h2 id="boas-vindas">Carregando...</h2>
+
+        <section class="resumo">
+      <div class="resumo-card">
+        <h3>Entradas</h3>
+        <p class="valor" id="entradas">R$ 0,00</p>
+      </div>
+      <div class="resumo-card">
+        <h3>Saídas</h3>
+        <p class="valor" id="saidas">R$ 0,00</p>
+      </div>
+      <div class="resumo-card">
+        <h3>Saldo</h3>
+        <p class="valor" id="saldo">R$ 0,00</p>
+      </div>
+    </section>
+<section class="filtro-data-section">
+    <h2>Filtro de Período</h2>
+    <div class="filtro-container">
+        <label for="data-inicial">De:</label>
+        <input type="date" id="data-inicial">
+        
+        <label for="data-final">Até:</label>
+        <input type="date" id="data-final">
+        
+        <button id="btn-aplicar-filtro" class="btn-principal">Aplicar Filtro</button>
+        <button id="btn-limpar-filtro" class="btn-secundario">Mostrar Tudo</button>
+    </div>
+</section>
+<section id="comparativo-section">
+    <h2>Comparativo de Gastos (Mês vs. Mês Anterior)</h2>
+    <div id="comparativo-container" class="grid-comparativo">
+        <p id="comparativo-loading">Carregando dados...</p>
+    </div>
+</section>
+        <section class="grafico">
+      <h2>Distribuição dos gastos</h2>
+      <canvas id="gastosChart"></canvas>
+    </section>
+    
+        <section class="metas">
+      <h2>Metas de Gasto</h2>
+      <div id="metas-container">
+        <p>Carregando suas metas...</p>
+      </div>
+      <button id="btn-add-meta">+ Adicionar Meta</button>
+    </section>
+
+        <div id="modal-meta" class="modal">
+      <div class="modal-content">
+        <span id="fechar-meta">&times;</span>
+        <h2>Nova Meta</h2>
+        <form id="form-meta">
+          <label for="meta-categoria">Categoria:</label>
+          <select id="meta-categoria" required></select>
+
+          <label for="meta-valor">Valor (R$):</label>
+          <input type="number" id="meta-valor" step="0.01" required>
+          <button type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+    
+        <div class="tabela">
+      <h2>Suas Transações</h2>
+      <table id="tabela-gastos">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Valor</th>
+            <th>Detalhes</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button id="btn-add"> + Adicionar Transação </button>
+    </div>
+
+ <div id="modal" class="modal">
+    <div class="modal-content">
+        <span id="fechar">&times;</span>
+        <h2>Nova Transação</h2>
+        <form id="form-transacao">
+            <select id="tipo" required>
+                <option value="">Selecione o tipo</option>
+                <option value="entrada">Entrada</option>
+                <option value="gasto">Gasto</option>
+            </select>
+
+            <select id="categoria" required>
+                <option value="">Selecione uma categoria</option>
+                <option value="Streaming">Streaming</option>
+                <option value="Investimentos">Investimentos</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Outros">Outros</option>
+            </select>
+
+            <input type="number" id="valor" placeholder="Valor (R$)" required>
+            <input type="text" id="detalhes" placeholder="Descrição" required>
+            <input type="date" id="data" required> 
+            
+            <button type="submit">Adicionar</button>
+        </form>
+    </div>
+</div>
+    <div id="modal-categoria" class="modal">
+        <div class="modal-content">
+            <span id="fechar-categoria">&times;</span>
+            <h2>Nova Categoria</h2>
+            <form id="form-categoria">
+                <label for="nome-categoria">Nome da Categoria:</label>
+                <input type="text" id="nome-categoria" placeholder="Ex: Lazer, Educação" required>
+                <button id="btn-add-categoria">+ Adicionar Categoria</button>
+            </form>
+        </div>
+    </div>
+    
+<section class="categorias">
+    <h2>Categorias (Clique para ver as dicas)</h2>
+    <div class="cards">
+        <div class="card categoria-item" data-name="Serviços de Stream">
+            <img src="/assets/img/streaming.svg">
+            <p>Serviços de Stream</p>
+        </div>
+        
+        <div class="card categoria-item" data-name="Investimentos Pessoais">
+            <img src="/assets/img/investimento.svg">
+            <p>Investimentos Pessoais</p>
+        </div>
+        
+        <div class="card categoria-item" data-name="Transporte">
+            <img src="/assets/img/transporte.svg">
+            <p>Transporte</p>
+        </div>
+        
+        <div class="card categoria-item" data-name="Alimentação">
+            <img src="/assets/img/alimentacao.svg">
+            <p>Alimentação</p>
+        </div>
+        
+        <div class="card categoria-item" data-name="Outros">
+            <img src="/assets/img/outros.svg">
+            <p>Outros</p>
+        </div>
+    </div>
+</section>
+  </main>
+<div id="dicas-modal" class="modal-dicas" style="display: none;">
+    <div class="modal-content-dicas">
+        <span class="fechar-dicas">&times;</span> 
+        
+        <h2 id="dicas-titulo"></h2> 
+        <p id="dicas-conteudo"></p>
+    </div>
+</div>
+  <footer>
+    <p>Desenvolvido por Marcos Vinicius</p>
+    <a href="https://m4rc05v1.github.io/Portifolio/" target="_blank">Portfólio</a> | 
+    <a href="https://linkedin.com/in/marcos-vinicius-5249151a2" target="_blank">LinkedIn</a>
+  </footer>
+
+<script src="/public/scripts/index.js"></script>
+
+</body>
+</html>

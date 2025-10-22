@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração</title>
+    <link rel="stylesheet" href="/public/css/admin.css"> 
+</head>
+<body>
+    
+    <header class="header">
+        <div class="logo">
+            <h1>Painel de Administração</h1>
+        </div>
+        <button id="btn-sair-admin" class="btn-sair">Sair</button>
+    </header>
+
+    <main class="container">
+        
+        <h2 id="boas-vindas-admin">Carregando permissões...</h2> 
+        <section class="card-admin">
+    <h2>Gerenciamento de Usuários</h2>
+    
+    <table id="tabela-usuarios" class="tabela-admin">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Status Admin</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="5">Carregando usuários...</td></tr>
+        </tbody>
+    </table>
+</section>
+
+        <section class="card-admin">
+            <h2>Gerenciamento de Categorias</h2>
+            
+            <div class="header-admin">
+                <button id="btn-nova-categoria" class="btn-primary">+ Nova Categoria</button>
+            </div>
+
+            <table id="tabela-categorias" class="tabela-admin">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="3">Carregando categorias...</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+    </main>
+    
+    <div id="modal-editar-categoria" class="modal-admin" style="display: none;">
+        <div class="modal-content-admin">
+            <span class="fechar-admin" data-modal="modal-editar-categoria">&times;</span>
+            <h2>Cadastrar/Editar Categoria</h2>
+            <form id="form-categoria-admin">
+                <input type="hidden" id="categoria-id-admin">
+                
+                <label for="nome-categoria-admin">Nome da Categoria:</label>
+                <input type="text" id="nome-categoria-admin" required>
+                
+                <button type="submit" class="btn-salvar">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/public/scripts/admin.js"></script>
+</body>
+</html>

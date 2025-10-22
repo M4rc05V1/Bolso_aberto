@@ -1,0 +1,178 @@
+/* ======================================= */
+/* 1. SEÇÕES E CARDS DO ADMIN              */
+/* ======================================= */
+
+.card-admin {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px; /* Mais espaço interno */
+    margin-bottom: 30px; /* Mais espaço entre as seções */
+}
+
+.card-admin h2 {
+    color: #2e8b57; /* Verde principal */
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.header-admin {
+    display: flex;
+    justify-content: flex-end; /* Alinha o botão para a direita */
+    margin-bottom: 20px;
+}
+
+/* ======================================= */
+/* 2. ESTILO DAS TABELAS (Gerenciamento)   */
+/* ======================================= */
+
+.tabela-admin {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaços entre as bordas das células */
+    margin-top: 20px;
+}
+
+.tabela-admin th, .tabela-admin td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabela-admin th {
+    background-color: #f8f8f8;
+    color: #444;
+    font-weight: 600;
+}
+
+.tabela-admin tr:hover {
+    background-color: #fafafa; /* Leve destaque ao passar o mouse */
+}
+
+/* ======================================= */
+/* 3. BOTÕES DE AÇÃO NO ADMIN              */
+/* ======================================= */
+
+/* Botão principal para nova categoria/usuário */
+.btn-primary {
+    background-color: #2e8b57;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #25784a;
+}
+
+/* Botões de Ações (Editar, Excluir) dentro da tabela */
+.btn-admin {
+    padding: 6px 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Botão Editar */
+.btn-editar-categoria {
+    background-color: #3498DB;
+    color: white;
+    border-color: #3498DB;
+}
+
+.btn-editar-categoria:hover {
+    background-color: #2980B9;
+}
+
+/* Botão Excluir */
+.btn-excluir-categoria {
+    background-color: #E74C3C;
+    color: white;
+    border-color: #E74C3C;
+}
+
+.btn-excluir-categoria:hover {
+    background-color: #C0392B;
+}
+
+
+/* ======================================= */
+/* 4. MODAL DO ADMIN (Cadastro/Edição)     */
+/* ======================================= */
+
+.modal-admin {
+    display: none; 
+    position: fixed; 
+    z-index: 10; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.5); /* Fundo escuro */
+}
+
+.modal-content-admin {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% do topo e centralizado */
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%; 
+    max-width: 500px; /* Limita a largura */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.fechar-admin {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.fechar-admin:hover,
+.fechar-admin:focus {
+    color: #777;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos do Formulário no Modal */
+#form-categoria-admin label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+    color: #333;
+}
+
+#form-categoria-admin input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que padding e borda não aumentem a largura */
+}
+
+.btn-salvar {
+    background-color: #2e8b57;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.btn-salvar:hover {
+    background-color: #25784a;
+}
