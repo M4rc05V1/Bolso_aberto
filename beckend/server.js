@@ -44,19 +44,20 @@ function autenticarToken(req, res, next) {
 
 /// ================== POSTGRESQL (com Pool) ==================
 const db = new Pool({
- host: process.env.DB_HOST,
- user: process.env.DB_USER,
- password: process.env.DB_PASSWORD,
- database: process.env.DB_NAME,
- port: process.env.DB_PORT || 5432, 
- ssl: { rejectUnauthorized: false } 
+    connectionString: process.env.DATABASE_URL,
+    ssl: { 
+        rejectUnauthorized: false 
+    } 
 });
-
 
 db.query('SELECT NOW()')
     .then(res => console.log('Conectado ao PostgreSQL com sucesso! Hora:', res.rows[0].now))
     .catch(err => console.error('Erro ao conectar ao PostgreSQL:', err));
 // ================== ROTAS DE PÁGINAS ==================
+app.get("/api/ping", (req, res) => {
+    res.status(200).json({ status: "ok", service: "Bolso Aberto API", db: "Conectado" });
+});
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"));
 });
@@ -648,6 +649,13 @@ app.delete("/metas/:id", authenticateToken, async (req, res) => {
     }
 });
 // ================== INICIAR SERVIDOR ==================
+app.get('/', (req, res) => {
+    res.status(200).send({
+        status: 'OK',
+        message: 'API de Finanças está no ar e funcionando!'
+    });
+});
+
 app.listen(3000, () => {
   console.log("✅ Servidor rodando em http://localhost:3000");
 });
