@@ -1,10 +1,9 @@
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://bolso-aberto.onrender.com";
 
 function getAuthHeaders() {
     const token = localStorage.getItem('token');
     if (!token) {
-        // Se não houver token, redireciona imediatamente (segurança básica)
         window.location.href = 'login.html'; 
         return {};
     }
@@ -16,22 +15,20 @@ function getAuthHeaders() {
 
 async function checarAcessoAdmin() {
     try {
+        // O fetch agora aponta para a URL correta do Render
         const res = await fetch(`${API_URL}/admin/status`, { 
             headers: getAuthHeaders() 
         });
 
         if (!res.ok) {
-            // Se o servidor retorna erro (403 Proibido ou 401 Não Autorizado)
             alert("Acesso negado ou sessão expirada. Você será redirecionado.");
-            window.location.href = 'index.html'; // Redireciona para o painel normal
+            window.location.href = 'index.html';
             return false;
         }
 
-        // Se deu OK (status 200), o usuário é admin
         return true;
 
     } catch (err) {
-        // Erro de rede/conexão com o servidor
         console.error("Erro ao verificar status admin:", err);
         window.location.href = 'index.html'; 
         return false;

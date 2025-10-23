@@ -1,24 +1,21 @@
-// public/scripts/index.js
-const API_URL = "http://localhost:3000";
+
+const API_URL = "https://bolso-aberto.onrender.com";
 
 // =================== FUNÇÕES AUXILIARES ===================
 
 function getAuthHeaders() {
-    const token = localStorage.getItem('token'); // Ou sessionStorage.getItem('token')
+    const token = localStorage.getItem('token'); 
 
     if (!token) {
-        // Redireciona para o login se não houver token
         window.location.href = '/login.html'; 
         return {}; 
     }
 
-    // CRÍTICO: Adiciona o Content-Type: application/json, pois é necessário para POST/PUT
     return {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json' 
     };
 }
-
 // =================== RENDERIZAÇÃO ===================
 // public/scripts/index.js (Adicione este objeto no topo)
 
