@@ -7,7 +7,7 @@ function getAuthHeaders() {
     const token = localStorage.getItem('token'); 
 
     if (!token) {
-        window.location.href = '/login.html'; 
+        window.location.href = 'login.html'; 
         return {}; 
     }
 
@@ -80,7 +80,7 @@ function renderTabela(transacoes) {
                     Editar
                 </button>
                 <button class="btn-excluir" data-id="${t.id}">
-                    <img src="/assets/img/excluir.svg" alt="Excluir">
+                    <img src="assets/img/excluir.svg" alt="Excluir">
                     Excluir
                 </button>
             </td>
