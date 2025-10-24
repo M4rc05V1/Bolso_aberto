@@ -23,10 +23,6 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Pasta pública (front-end: HTML, CSS, JS)
-const publicPath = path.join(__dirname, "public");
-app.use(express.static(publicPath));
-
 // ================== JWT ==================
 
 function autenticarToken(req, res, next) {
@@ -59,15 +55,10 @@ app.get("/api/ping", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(publicPath, "index.html"));
-});
-
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(publicPath, "login.html"));
-});
-
-app.get("/cadastro", (req, res) => {
-  res.sendFile(path.join(publicPath, "cadastro.html"));
+    res.status(200).json({
+        status: 'OK',
+        message: 'Bolso Aberto API está no ar e funcionando!'
+    });
 });
 
 // ================== MIDDLEWARE DE AUTENTICAÇÃO ==================
@@ -649,13 +640,7 @@ app.delete("/metas/:id", authenticateToken, async (req, res) => {
     }
 });
 // ================== INICIAR SERVIDOR ==================
-app.get('/', (req, res) => {
-    res.status(200).send({
-        status: 'OK',
-        message: 'API de Finanças está no ar e funcionando!'
-    });
-});
-
-app.listen(3000, () => {
-  console.log("✅ Servidor rodando em http://localhost:3000");
+app.listen(process.env.PORT || 3000, () => {
+  const port = process.env.PORT || 3000;
+  console.log(`✅ Servidor rodando na porta ${port}`);
 });
