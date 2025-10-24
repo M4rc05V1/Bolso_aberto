@@ -18,11 +18,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-// ================== CONFIGURAÇÃO DE PATH ==================
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // ================== JWT ==================
 
 function autenticarToken(req, res, next) {
