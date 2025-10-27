@@ -15,9 +15,33 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+// REMOVER: app.use(express.json()); 
 
+
+const allowedOrigins = [
+    // Seu Front-end no Netlify - CRÍTICO!
+    'https://bolsoaberto.netlify.app', 
+    // Para testes locais (opcional, mas recomendado)
+    'http://localhost:3000', 
+    'http://localhost:5500' 
+];
+
+const corsOptions = {
+    // Configuração que checa se a origem da requisição está na lista
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            // Se a origem não for permitida, o servidor nega o CORS.
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+};
+
+app.use(cors(corsOptions)); 
+
+app.use(express.json());
 // ================== JWT ==================
 
 function autenticarToken(req, res, next) {
