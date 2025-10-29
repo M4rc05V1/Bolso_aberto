@@ -199,7 +199,7 @@ async function salvarCategoria(event) {
         fecharModalAdmin("modal-editar-categoria");
         form.reset();
         
-        // Recarrega a lista de categorias no Admin e limpa o cache do painel
+        // Recarrega a lista de categorias no Admin e limpa o cache do painel.
         localStorage.removeItem('categorias');
         carregarCategoriasAdmin(); 
         
