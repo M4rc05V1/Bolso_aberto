@@ -16,27 +16,24 @@ const app = express();
 
 
 const allowedOrigins = [
-    // Seu Front-end no Netlify - CRÍTICO!
-    'https://bolsoaberto.netlify.app', 
-    // Para testes locais (opcional, mas recomendado)
-    'http://localhost:3000', 
-    'http://localhost:5500' 
+    'https://bolsoaberto.netlify.app', 
+    'http://localhost:3000', 
+    'http://localhost:5500',
+    null // <--- ADICIONE ESTA LINHA PARA PERMITIR ORIGEM NULA!
 ];
-
 const corsOptions = {
     // Configuração que checa se a origem da requisição está na lista
-    origin: (origin, callback) => {
-        if (allowedOrigins.includes(origin) || !origin) {
-            callback(null, true);
-        } else {
-            // Se a origem não for permitida, o servidor nega o CORS.
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
+  origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin)) { // <--- SIMPLIFIQUE A CHECAGEM
+            callback(null, true);
+        } else {
+            callback(new Error(`Origem não permitida pelo CORS: ${origin}`));
+        }
+    },
+    credentials: true,
 };
 
-app.use(cors(corsOptions)); 
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
