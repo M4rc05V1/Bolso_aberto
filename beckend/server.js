@@ -65,21 +65,22 @@ app.get("/", (req, res) => {
 
 // ================== MIDDLEWARE DE AUTENTICAÇÃO ==================
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
 
-  if (token == null) {
-    return res.sendStatus(401);
-  }
+    if (token == null) {
+        // Token não fornecido (401 Unauthorized)
+        return res.status(401).json({ error: "Token não fornecido." }); 
+    }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => { // <-- CORREÇÃO AQUI!
-    if (err) {
- // O erro '403 Forbidden' vem daqui quando a chave não bate
- return res.sendStatus(403); 
- }
- req.user = user;
- next();
- });
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            // Token inválido/expirado (403 Forbidden)
+            return res.status(403).json({ error: "Token inválido ou expirado." }); // CORRIGIDO PARA JSON!
+        }
+        req.user = user;
+        next();
+    });
 }
 function adminOnly(req, res, next) {
     if (req.user && req.user.is_admin) {
