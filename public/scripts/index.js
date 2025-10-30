@@ -4,7 +4,7 @@ const API_URL = "https://bolso-aberto.onrender.com";
 // =================== FUNÇÕES AUXILIARES ===================
 
 function getAuthHeaders() {
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('userToken'); 
 
     if (!token) {
         window.location.href = 'login.html'; 
@@ -704,7 +704,7 @@ function initFiltrosData() {
 }
 document.addEventListener("DOMContentLoaded", () => {
     // Checagem de autenticação
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("userToken");
     if (!token) {
         window.location.href = "login.html";
         return;
