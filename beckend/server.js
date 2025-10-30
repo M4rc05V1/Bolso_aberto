@@ -81,6 +81,13 @@ function authenticateToken(req, res, next) {
  next();
  });
 }
+function adminOnly(req, res, next) {
+    if (req.user && req.user.is_admin) {
+        next(); // Usuário é administrador, pode prosseguir
+    } else {
+        res.status(403).json({ error: "Acesso negado. Apenas administradores podem acessar este recurso." });
+    }
+}
 // ================== AUTENTICAÇÃO ==================
 app.post("/register", async (req, res) => {
   const { nome, email, senha } = req.body;
