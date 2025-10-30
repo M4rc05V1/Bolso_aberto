@@ -11,9 +11,6 @@ import dotenv from "dotenv";
 // 🔐 carrega as variáveis do arquivo .env
 dotenv.config();
 
-// Agora podemos usar a variável do .env
-const JWT_SECRET = process.env.JWT_SECRET;
-
 const app = express();
 // REMOVER: app.use(express.json()); 
 
@@ -42,20 +39,6 @@ const corsOptions = {
 app.use(cors(corsOptions)); 
 
 app.use(express.json());
-// ================== JWT ==================
-
-function autenticarToken(req, res, next) {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1]; // remove o "Bearer"
-    
-    if (!token) return res.status(403).json({ error: "Token não fornecido" });
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) return res.status(403).json({ error: "Token inválido" });
-        req.user = user;
-        next();
-    });
-}
 
 /// ================== POSTGRESQL (com Pool) ==================
 const db = new Pool({
@@ -82,33 +65,22 @@ app.get("/", (req, res) => {
 
 // ================== MIDDLEWARE DE AUTENTICAÇÃO ==================
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
-  if (token == null) {
-    return res.sendStatus(401);
-  }
+  if (token == null) {
+    return res.sendStatus(401);
+  }
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.sendStatus(403);
-    }
-    req.user = user;
-    next();
-  });
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => { // <-- CORREÇÃO AQUI!
+    if (err) {
+ // O erro '403 Forbidden' vem daqui quando a chave não bate
+ return res.sendStatus(403); 
+ }
+ req.user = user;
+ next();
+ });
 }
-function adminOnly(req, res, next) {
-    if (req.user && req.user.is_admin) {
-        next(); // Usuário é administrador, pode prosseguir
-    } else {
-        res.status(403).json({ error: "Acesso negado. Apenas administradores podem acessar este recurso." });
-    }
-}
-
-app.get('/admin/status', authenticateToken, adminOnly, (req, res) => {
-    res.json({ message: "Administrador autenticado.", isAdmin: true });
-});
-
 // ================== AUTENTICAÇÃO ==================
 app.post("/register", async (req, res) => {
   const { nome, email, senha } = req.body;
